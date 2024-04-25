@@ -1,17 +1,30 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+require("dotenv").config();
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 
-var app = express();
+const app = express();
+
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
+const mongoDB = `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.gc6cwsk.mongodb.net/local_library?retryWrites=true&w=majority&appName=Cluster0`;
+
+main().catch((err) => console.log(err));
+
+async function main() {
+  await mongoose.connect(mongoDB);
+}
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -39,3 +52,7 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+// https://github.com/wibawaarif/firebase_storage_example
+// https://www.youtube.com/watch?v=i9-HhqA_5kM&ab_channel=TheDevCorner
+// 
