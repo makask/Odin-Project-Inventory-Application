@@ -54,7 +54,3 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-
-// https://github.com/wibawaarif/firebase_storage_example
-// https://www.youtube.com/watch?v=i9-HhqA_5kM&ab_channel=TheDevCorner
-// 

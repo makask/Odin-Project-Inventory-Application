@@ -14,7 +14,7 @@ exports.category_detail = asyncHandler(async (req, res, next) => {
   
 // Display Category create form on GET.
 exports.category_create_get = (req, res, next) => {
-    res.render("category_form", { title: "Create New Category" });
+    res.render("category_form", { title: "Create Category" });
 };
   
 // Handle Category create on POST.
@@ -36,7 +36,7 @@ exports.category_create_post = [
         if(!errors.isEmpty()){
            // There are errors. Render the form again with sanitized values/error messages. 
            res.render("category_form", {
-            title: "Create New Category",
+            title: "Create Category",
             category: category,
             errors: errors.array(),
            });
