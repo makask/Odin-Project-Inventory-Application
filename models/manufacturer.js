@@ -8,7 +8,7 @@ const ManufacturerSchema = new Schema({
     logo_url : { type: String },
     founded: { type: Date }, 
     description: { type: String },
-    url: { type: String }
+    homepage_url: { type: String }
 });
 
 ManufacturerSchema.virtual("url").get(function (){
