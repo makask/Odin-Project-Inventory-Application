@@ -6,7 +6,7 @@ const ManufacturerSchema = new Schema({
     name: { type: String, required: true, maxLength: 100 },
     origin: { type: String, maxLength: 100 },
     logo_url : { type: String },
-    founded: { type: Date }, 
+    founded: { type: Number }, 
     description: { type: String },
     homepage_url: { type: String }
 });

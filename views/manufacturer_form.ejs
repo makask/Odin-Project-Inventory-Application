@@ -1,0 +1,36 @@
+<%- include('partials/header.ejs'); -%>
+
+<h1><%= title %></h1>
+
+<form action="/catalog/manufacturer/create" method="post">
+    <label for="name">Name:</label>
+    <input id="name" name="name" type="text" placeholder="Company name" required/>
+    <br>
+    <label for="origin">Origin:</label>
+    <input id="origin" name="origin" type="text" placeholder="Country" />
+    <br>
+    <label for="logo_url">Logo url:</label>
+    <input id="logo_url" name="logo_url" type="text" placeholder="Logo url"/>
+    <br>
+    <label for="founded">Founded:</label>
+    <input id="founded" name="founded" type="number" min="1800" max="2099" step="1" placeholder="2024"/>
+    <br>
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" type="text" placeholder="Description..."></textarea>
+    <br>
+    <label for="homepage_url">Homepage url:</label>
+    <input id="homepage_url" name="homepage_url" type="text" placeholder="Homepage"/>
+    <br>
+    <button type="submit">Submit</button>
+</form>
+
+<% if(locals.errors){ %>
+    <ul>
+       <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+       <% }) %>
+    </ul>
+<% } %>
+
+</body>
+</html>

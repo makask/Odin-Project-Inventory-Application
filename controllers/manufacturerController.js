@@ -33,10 +33,9 @@ exports.manufacturer_create_post = [
     body("logo_url")
         .trim()
         .escape(),
-    body("founded", "Invalid date")
-        .optional({ values: "falsy"} )
-        .isISO8601()
-        .toDate(),
+    body("founded")
+        .trim()
+        .escape(),
     body("description")
         .trim()
         .escape(),
