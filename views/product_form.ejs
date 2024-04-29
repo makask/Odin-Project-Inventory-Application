@@ -1,0 +1,79 @@
+<%- include('partials/header.ejs'); -%>
+
+<h1><%= title %></h1>
+
+<form action="/catalog/product/create" method="post">
+    <label for="title">Title:</label>
+    <input id="title" name="title" type="text" placeholder="Product title" required value="<%= typeof product === 'undefined' ? '' : product.title %>"/>
+    <br>
+    <label for="pic_url">Picture URL:</label>
+    <input id="pic_url" name="pic_url" type="text" placeholder="Picture URL" value="<%= typeof product === 'undefined' ? '' : product.pic_url %>"/>
+    <br>
+    <label for="manufacturer">Manufacturers:</label>
+    <select id="manufacturer" name="manufacturer" required>
+        <option value="">--Please select manufacturer--</option>
+        <% manufacturers.forEach(function(manufacturer) { %>
+          <% if (locals.product) { %>
+            <% if (manufacturer._id.toString() === product.manufacturer._id.toString()) { %>
+              <option value="<%= manufacturer._id %>" selected><%= manufacturer.name %></option>
+            <% } else { %>
+              <option value="<%= manufacturer._id %>"><%= manufacturer.name %></option>
+            <% } %>
+          <% } else { %>
+            <option value="<%= manufacturer._id %>"><%= manufacturer.name %></option>
+          <% } %>
+        <% }); %>
+    </select>
+    <br>
+    <label for="origin">Origin:</label>
+    <input id="origin" name="origin" type="text" placeholder="Country of origin" value="<%= typeof product === 'undefined' ? '' : product.origin %>"/>
+    <br>
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" placeholder="Description" value="<%= typeof product === 'undefined' ? '' : product.description %>"></textarea>
+    <br>
+    <label>Category:</label>
+    <% categories.forEach(function(category) { %>
+        <div style="display: inline; padding-right:10px;">
+          <% if (category.checked) { %>
+            <input class="checkbox-input" type="checkbox" name="category" id="<%= category._id %>" value="<%= gategory._id %>" checked>
+          <% } else { %>
+            <input class="checkbox-input" type="checkbox" name="category" id="<%= category._id %>" value="<%= category._id %>">
+          <% } %>
+          <label for="<%= category._id %>">&nbsp;<%= category.name %></label>
+        </div>
+    <% }); %>
+    <br>
+    <label for="price">Price:</label>
+    <input id="price" name="price" type="number" min="0" step="0.1" placeholder="0" value="<%= typeof product === 'undefined' ? '' : product.price %>"/>
+    <br>
+    <label for="quantity">Quantity:</label>
+    <input id="quantity" name="quantity" type="number" min="0" step="1" placeholder="0" value="<%= typeof product === 'undefined' ? '' : product.quantity %>"/>
+    <br>
+    <label for="caliber">Caliber:</label>
+    <input id="caliber" name="caliber" type="text" placeholder="Caliber" value="<%= typeof product === 'undefined' ? '' : product.caliber %>"/>
+    <br>
+    <label for="action">Action:</label>
+    <input id="action" name="action" type="text" placeholder="Action" value="<%= typeof product === 'undefined' ? '' : product.action %>"/>
+    <br>
+    <label for="capacity">Capacity:</label>
+    <input id="capacity" name="capacity" type="number" min="0" step="1" placeholder="0" value="<%= typeof product === 'undefined' ? '' : product.capacity %>"/>
+    <br>
+    <label for="date_of_manufacture">Date of manufacture:</label>
+    <input id="date_of_manufacture" name="date_of_manufacture" type="date" value="<%= typeof product === 'undefined' ? '' : product.date_of_manufacture %>"/>
+    <br>
+    <label for="year_of_origin">Year of origin:</label>
+    <input id="year_of_origin" name="year_of_origin" type="number" min="1800" max="2100" step="1" value="<%= typeof product === 'undefined' ? '' : product.year_of_origin %>"/>
+    <br>
+    <button type="submit">Submit</button>
+</form>
+
+<% if(locals.errors){ %>
+    <ul>
+       <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+       <% }) %>
+    </ul>
+<% } %>
+
+</body>
+</html>

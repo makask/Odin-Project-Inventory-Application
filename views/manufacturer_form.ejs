@@ -4,22 +4,22 @@
 
 <form action="/catalog/manufacturer/create" method="post">
     <label for="name">Name:</label>
-    <input id="name" name="name" type="text" placeholder="Company name" required/>
+    <input id="name" name="name" type="text" placeholder="Company name" value="<%= typeof manufacturer === 'undefined' ? '' : manufacturer.name %>" required/>
     <br>
     <label for="origin">Origin:</label>
-    <input id="origin" name="origin" type="text" placeholder="Country" />
+    <input id="origin" name="origin" type="text" placeholder="Country" value="<%= typeof manufacturer === 'undefined' ? '' : manufacturer.origin %>" />
     <br>
     <label for="logo_url">Logo url:</label>
-    <input id="logo_url" name="logo_url" type="text" placeholder="Logo url"/>
+    <input id="logo_url" name="logo_url" type="text" placeholder="Logo url" value="<%= typeof manufacturer === 'undefined' ? '' : manufacturer.logo_url %>" />
     <br>
     <label for="founded">Founded:</label>
-    <input id="founded" name="founded" type="number" min="1800" max="2099" step="1" placeholder="2024"/>
+    <input id="founded" name="founded" type="number" min="1800" max="2099" step="1" placeholder="2024" value="<%= typeof manufacturer === 'undefined' ? '' : manufacturer.founded %>"/>
     <br>
     <label for="description">Description:</label>
-    <textarea id="description" name="description" type="text" placeholder="Description..."></textarea>
+    <textarea id="description" name="description" type="text" placeholder="Description..." value="<%= typeof manufacturer === 'undefined' ? '' : manufacturer.description %>"></textarea>
     <br>
     <label for="homepage_url">Homepage url:</label>
-    <input id="homepage_url" name="homepage_url" type="text" placeholder="Homepage"/>
+    <input id="homepage_url" name="homepage_url" type="text" placeholder="Homepage" value="<%= typeof manufacturer === 'undefined' ? '' : manufacturer.homepage_url %>"/>
     <br>
     <button type="submit">Submit</button>
 </form>

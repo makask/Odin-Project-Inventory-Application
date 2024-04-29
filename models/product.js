@@ -9,14 +9,18 @@ const ProductSchema = new Schema({
     origin: { type: String },
     description: { type: String },
     category: [{ type: Schema.Types.ObjectId, ref: "Category"}],
-    price: { type: Number, required: true },
+    price: { 
+        type: Number, 
+        required: true,
+        get: v => parseFloat(v).toFixed(2),
+        set: v => parseFloat(v).toFixed(2) 
+    },
     quantity: { type: Number, required: true },
     caliber: { type: String },
     action: { type: String },
-    color: { type: String },
     capacity: { type: Number },
     date_of_manufacture: { type: Date },
-    date_of_origin: { type: Date }
+    year_of_origin: { type: Number }
 });
 
 ProductSchema.virtual("url").get(function(){

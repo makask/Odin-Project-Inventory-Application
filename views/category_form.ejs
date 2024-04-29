@@ -3,7 +3,14 @@
 
 <form action="/catalog/category/create" method="POST">
     <label for="name">Category:</label>
-    <input id="name" type="text" placeholder="Small firearms, explosives etc." name="name" required></input>
+    <input 
+        id="name" 
+        type="text" 
+        placeholder="Small firearms, explosives etc." 
+        name="name" 
+        required 
+        value="<%= typeof category === 'undefined' ? '' : category.name %>">
+    </input>
     <button>Submit</button>
 </form>
 
