@@ -4,9 +4,26 @@ const { body, validationResult } = require("express-validator");
 const Manufacturer = require("../models/manufacturer");
 const Category = require("../models/category");
 const manufacturer = require("../models/manufacturer");
+const category = require("../models/category");
 
 exports.index = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Site Home Page");
+    // Get details of products, manufacturers and categories counts (in parallel)
+    const [ 
+        numOfProducts, 
+        numOfManufacturers, 
+        numOfCategories,
+    ] = await Promise.all([
+        Product.countDocuments({}).exec(),
+        Manufacturer.countDocuments({}).exec(),
+        Category.countDocuments({}).exec(),
+    ]);
+
+    res.render("index", {
+        title: "Home Page",
+        product_count: numOfProducts,
+        manufacturer_count: numOfManufacturers,
+        category_count: numOfCategories
+    });
 });
   
 // Display list of all products.

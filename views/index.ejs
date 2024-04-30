@@ -1,6 +1,18 @@
 <%- include('partials/header.ejs'); -%>
 
-<h1>Index ? </h1>
+<h1><%= title %></h1>
+
+<p>Welcome to <em>Inventory Application</em>!</p>
+
+<h2>Dynamic content</h2>
+
+<p>The store has the following record counts:</p>
+
+<ul>
+    <li><strong>Products:</strong> <%= product_count %></li>
+    <li><strong>Manufacturers:</strong> <%= manufacturer_count %></li>
+    <li><strong>Categories:</strong> <%= category_count %></li>
+  </ul>
 
 </body>
 </html>
