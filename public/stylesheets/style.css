@@ -1,8 +1,15 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+body{
+
 }
 
-a {
-  color: #00B7FF;
+.main-container{
+  display: flex;
+}
+
+.left-navbar{
+  padding: 1rem;
+}
+
+.right-area{
+  padding: 1rem;
 }

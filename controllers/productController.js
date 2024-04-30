@@ -28,7 +28,12 @@ exports.index = asyncHandler(async (req, res, next) => {
   
 // Display list of all products.
 exports.product_list = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Product list");
+    const allProducts = await Product.find({}, "pic_url title manufacturer action caliber quantity category price")
+        .sort({ title:1 })
+        .populate("manufacturer category")
+        .exec();
+
+        res.render("product_list", { title: "Product List", product_list: allProducts }); 
 });
   
 // Display detail page for a specific product.
@@ -65,9 +70,6 @@ exports.product_create_post = [
     body("title", "Title must not be empty.")
         .trim()
         .isLength({ min: 1 })
-        .escape(),
-    body("pic_url")
-        .trim()
         .escape(),
     body("manufacturer", "manufacturer must not be empty.")
         .trim()
@@ -110,7 +112,7 @@ exports.product_create_post = [
         const product = new Product({
             title: req.body.title,
             pic_url: req.body.pic_url,
-            manufaturer: req.body.manufacturer,
+            manufacturer: req.body.manufacturer,
             origin: req.body.origin,
             description: req.body.description,
             category: req.body.category,

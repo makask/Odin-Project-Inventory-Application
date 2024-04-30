@@ -30,9 +30,6 @@ exports.manufacturer_create_post = [
         .isLength({ min: 1})
         .escape()
         .withMessage("Manufacturers origin must be specified"),
-    body("logo_url")
-        .trim()
-        .escape(),
     body("founded")
         .trim()
         .escape(),

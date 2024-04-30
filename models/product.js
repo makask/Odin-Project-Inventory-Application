@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const ProductSchema = new Schema({
     title: { type: String, required: true},
     pic_url: { type: String },
-    manufaturer: { type: Schema.Types.ObjectId, ref: "Manufacturer", required: true},
+    manufacturer: { type: Schema.Types.ObjectId, ref: "Manufacturer", required: true},
     origin: { type: String },
     description: { type: String },
     category: [{ type: Schema.Types.ObjectId, ref: "Category"}],
