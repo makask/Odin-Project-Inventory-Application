@@ -1,0 +1,19 @@
+<%- include('partials/header.ejs'); -%>
+    <h1><%= title%></h1>
+    
+    <% if (category_list.length) { %>
+        <ul>
+          <% category_list.forEach(function(category) { %>
+            <li>
+              <a href="<%= category.url %>"><%= category.name %></a> 
+            </li>
+          <% }); %>
+        </ul>
+      <% } else { %>
+        <p>There are no genres.</p>
+      <% } %>
+
+</div>
+</div>
+</body>
+</html>
