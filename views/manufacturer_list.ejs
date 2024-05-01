@@ -1,0 +1,23 @@
+<%- include('partials/header.ejs'); -%>
+
+    <h1><%= title%></h1>
+    
+    <% if(manufacturer_list.length){ %>
+        <ul>
+            <% manufacturer_list.forEach(function(manufacturer){ %>
+                <li style="display: flex; align-items: center; gap: 1rem">
+                    <img src="<%= manufacturer.logo_url%>" style="width: 100px;" />
+                    <a href="<%= manufacturer.homepage_url%>"><%=manufacturer.name%></a>
+                    <p><%= manufacturer.origin %></p>
+                </li>
+            <% }) %>
+        </ul>
+    <% }else{ %>
+        <p>There are no manufacturers</p>
+    <%} %>
+
+
+</div>
+</div>
+</body>
+</html>

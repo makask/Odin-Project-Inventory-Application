@@ -4,7 +4,11 @@ const { body, validationResult } = require("express-validator");
 
 //Display list of all manufacturers
 exports.manufacturer_list = asyncHandler(async (req, res, nexr) => {
-    res.send("NOT IMPLEMENTED: Manufacturer list");
+    const allManufacturers = await Manufacturer.find().sort({ name: 1 }).exec();
+    res.render("manufacturer_list", {
+        title: "Manufacturer List",
+        manufacturer_list: allManufacturers,
+    });
 });
 
 //Display detail page for a specific Manufacturer.
@@ -36,10 +40,6 @@ exports.manufacturer_create_post = [
     body("description")
         .trim()
         .escape(),
-    body("homepage_url")
-        .trim()
-        .escape(),
-
     // Process request after validation and sanitization.
     asyncHandler(async (req, res, next) => {
         // Extract the validation errors from a request.
