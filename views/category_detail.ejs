@@ -1,0 +1,28 @@
+<%- include('partials/header.ejs'); -%>
+
+<h1><%= title %></h1>
+
+<h1><%= category.name %></h1>
+
+<div style='margin-left:20px;margin-top:20px'>
+
+    <h2 style='font-size: 1.5rem;'>Products:</h2>
+    <% if (category_products.length) { %>
+      <dl>
+        <% category_products.forEach(function(product) { %>
+            <div style="display: flex; gap:1rem;">
+                <img style="width: 100px;" src="<%= product.pic_url%>"/>
+                <p><a href="<%= product.url %>"><%= product.title %></a></p>
+                <p><%= product.description %></p>
+            </div>
+        <% }); %>
+      </dl>
+    <% } else { %>
+      <p>No products in this category.</p>
+    <% } %>
+  </div>
+
+</div>
+</div>
+</body>
+</html>
