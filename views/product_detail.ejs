@@ -1,0 +1,35 @@
+<%- include('partials/header.ejs'); -%>
+
+<h1><%= product.title %></h1>
+
+<img style="width: 200px;" src="<%= product.pic_url%>"/>
+
+<p><strong>Manufacturer: </strong>
+    <a href="<%= product.manufacturer.url %>"><%= product.manufacturer.name %></a>
+</p>
+
+<p><strong>Description:</strong> <%= product.description %></p>
+<p><strong>Origin:</strong> <%= product.origin %></p>
+
+<p><strong>Categories: </strong>
+    <% product.category.forEach(function(val, index) { %>
+      <a href="<%= val.url %>"><%= val.name %></a>
+      <% if (index < product.category.length - 1) { %>
+        ,&nbsp;
+      <% } %>
+    <% }); %>
+</p>
+
+<p><strong>Caliber:</strong> <%= product.caliber %></p>
+<p><strong>Action:</strong> <%= product.action %></p>
+<p><strong>Ammo Capacity:</strong> <%= product.capacity %></p>
+<p><strong>In Stock:</strong> <%= product.quantity %></p>
+<p><strong>Price:</strong>$<%= product.price %></p>
+<p><strong>Year Of Origin:</strong> <%= product.year_of_origin %></p>
+<p><strong>Date of manufacture:</strong> <%= product.date_of_manufacture %></p>
+
+
+</div>
+</div>
+</body>
+</html>

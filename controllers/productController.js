@@ -38,7 +38,19 @@ exports.product_list = asyncHandler(async (req, res, next) => {
   
 // Display detail page for a specific product.
 exports.product_detail = asyncHandler(async (req, res, next) => {
-    res.send(`NOT IMPLEMENTED: Product detail: ${req.params.id}`);
+    const product = await Product.findById(req.params.id).populate("manufacturer").populate("category").exec();
+    
+    if(product===null){
+        //No results
+        const err = new Error("Product not found");
+        err.status = 404;
+        return next(err);
+    }
+
+    res.render("product_detail", {
+        title: product.title,
+        product: product,
+    });
 });
   
 // Display product create form on GET.
