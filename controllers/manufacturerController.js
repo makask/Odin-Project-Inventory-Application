@@ -1,4 +1,5 @@
 const Manufacturer = require("../models/manufacturer");
+const Product = require("../models/product");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
@@ -13,7 +14,24 @@ exports.manufacturer_list = asyncHandler(async (req, res, nexr) => {
 
 //Display detail page for a specific Manufacturer.
 exports.manufacturer_detail = asyncHandler(async (req, res, next) => {
-    res.send(`NOT IMPLEMENTED: Manufacturer detail: ${req.params.id}`);
+    // Get details of manufacturer and all their products
+    const [manufacturer, allProductsByManufacturer] = await Promise.all([
+        Manufacturer.findById(req.params.id).exec(),
+        Product.find({ manufacturer: req.params.id }, "title pic_url description").exec(),
+    ]);
+
+    if(manufacturer === null){
+        // No results.
+        const err = new Error("Manufacturer not found");
+        err.status = 404;
+        return next(err);
+    }
+
+    res.render("manufacturer_detail", {
+        title: "Manufacturer Detail",
+        manufacturer: manufacturer,
+        manufacturer_products: allProductsByManufacturer,
+    });
 });
 
 //Display Manufacturer create form on GET.
