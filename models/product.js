@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { DateTime } = require("luxon");
 
 const Schema = mongoose.Schema;
 
@@ -26,5 +27,11 @@ const ProductSchema = new Schema({
 ProductSchema.virtual("url").get(function(){
     return `/catalog/product/${this._id}`;
 });
+
+ProductSchema.virtual("date_of_manufacture_formatted").get(function(){
+    return this.date_of_manufacture ? DateTime.fromJSDate(this.date_of_manufacture).toLocaleString(DateTime.DATE_MED) : "";
+});
+
+
 
 module.exports = mongoose.model("Product", ProductSchema);
