@@ -170,20 +170,166 @@ exports.product_create_post = [
   
 // Display product delete form on GET.
 exports.product_delete_get = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Product delete GET");
+    const product = await Product.findById(req.params.id).exec();
+
+    if(product === null){
+         // No results.
+         const err = new Error("Product not found");
+         err.status = 404;
+         return next(err);
+    }
+
+    res.render("product_delete", {
+        title: "Delete Product",
+        product: product
+    })
 });
   
 // Handle product delete on POST.
 exports.product_delete_post = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Product delete POST");
+    const product = await Product.findById(req.params.id).exec();
+
+    if(product === null){
+        // No results.
+        const err = new Error("Product not found");
+        err.status = 404;
+        return next(err);
+   }else{
+        // Delete product and redirect to the list of products.
+        await Product.findByIdAndDelete(req.params.id);
+        res.redirect("/catalog/products");
+   }
 });
   
 // Display product update form on GET.
 exports.product_update_get = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Product update GET");
+    // Get product, manufacturers and categories for form.
+    const[product, allManufacturers, allCategories] = await Promise.all([
+        Product.findById(req.params.id).populate("manufacturer").exec(),
+        Manufacturer.find().sort({ name:1 }).exec(),
+        Category.find().sort({ name:1 }).exec(),
+    ]);
+
+    if(product === null){
+        // No results.
+        const err = new Error("Product not found");
+        err.status = 404;
+        return next(err);
+    }
+
+    // Mark selected categories as checked.
+    allCategories.forEach((category) => {
+        if(product.category.includes(category._id)) category.checked = "true";
+    });
+
+    res.render("product_form", {
+        title: "Update Product",
+        manufacturers: allManufacturers,
+        categories: allCategories,
+        product: product,
+    });
 });
   
 // Handle product update on POST.
-exports.product_update_post = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Product update POST");
-});
+exports.product_update_post = [
+    // Convert the category to an array.
+    (req, res, next) => {
+        if(!Array.isArray(req.body.category)){
+            req.body.category = typeof req.body.category === "undefined" ? [] : [req.body.category];
+        }
+        next();
+    },
+
+    // Validate and sanitize fields.
+    body("title", "Title must not be empty.")
+        .trim()
+        .isLength({ min: 1 })
+        .escape(),
+    body("manufacturer", "manufacturer must not be empty.")
+        .trim()
+        .isLength({ min: 1})
+        .escape(),
+    body("origin")
+        .trim()
+        .escape(),
+    body("description")
+        .trim()
+        .escape(),
+    body("category.*")
+        .escape(),
+    body("price")
+        .trim()
+        .escape(),
+    body("quantity")
+        .trim()
+        .escape(),
+    body("caliber")
+        .trim()
+        .escape(),
+    body("action")
+        .trim()
+        .escape(),
+    body("capacity")
+        .trim()
+        .escape(),
+    body("date_of_manufacture")
+        .trim()
+        .escape(),
+    body("year_of_origin")
+        .trim()
+        .escape(),
+
+    // Process request after validation and sanitization.
+    asyncHandler(async (req, res, next) => {
+        // Extract the validation errors from a request.
+        const errors = validationResult(req);
+
+        // Create a Product object with escaped/trimmed data and old id.
+        const product = new Product({
+            title: req.body.title,
+            pic_url: req.body.pic_url,
+            manufacturer: req.body.manufacturer,
+            origin: req.body.origin,
+            description: req.body.description,
+            category: typeof req.body.category === "undefined" ? [] : req.body.category,
+            price: req.body.price,
+            quantity: req.body.quantity,
+            caliber: req.body.caliber,
+            action: req.body.action,
+            capacity: req.body.capacity,
+            date_of_manufacture: req.body.date_of_manufacture,
+            year_of_origin: req.body.year_of_origin,
+            _id: req.params.id, // Required or a new ID will be assigned!
+        });
+
+        if(!errors.isEmpty()){
+            // There are errors. Render form again with sanitized values/error messages.
+
+            // Get all manufacturers and categories for form
+            const[allManufacturers, allCategories] = await Promise.all([
+                Manufacturer.find().sort({ name: 1}).exec(),
+                Category.find().sort({ name: 1}).exec(),
+            ]);
+
+            // Mark selected categories as checked.
+            for(const category of allCategories){
+                if(product.category.indexOf(category._id) > -1){
+                    category.checked = "true";
+                }
+            }
+            res.render("product_form", {
+                title: "Update Product",
+                manufacturers: allManufacturers,
+                categories: allCategories,
+                product: product,
+                errors: errors.array(),
+            });
+            return;
+        }else{
+            // Form data is valid. Update the record.
+            const updatedProduct = await Product.findByIdAndUpdate(req.params.id, product, {});
+            // Redirect to product detail page.
+            res.redirect(updatedProduct.url);
+        }
+    }),
+];

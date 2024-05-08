@@ -1,0 +1,17 @@
+<%- include('partials/header.ejs'); -%>
+
+<h1><%= title %>: <%= product.title %></h1>
+
+<p>Do you really want to delete this Product?</p>
+
+<form method="POST">
+    <div>
+      <input id="productid" class="form-control" type="hidden" name="productid" value="<%= product._id %>">
+    </div>
+    <button class="btn btn-primary" type="submit">Delete</button>
+</form>
+
+</div>
+</div>
+</body>
+</html>
