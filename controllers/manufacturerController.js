@@ -94,12 +94,44 @@ exports.manufacturer_create_post = [
 
 // Display Manufacturer delete form on GET.
 exports.manufacturer_delete_get = asyncHandler(async(req, res, next) => {
-    res.send("NOT IMPLEMENTED: Manufacturer delete GET");
+    // Get details of manufacturer and all their products (in parallel)
+    const [manufacturer, allProductsByManufacturer] = await Promise.all([
+        Manufacturer.findById(req.params.id).exec(),
+        Product.find({ manufacturer: req.params.id}, "title pic_url description").exec(),
+    ]);
+
+    if (manufacturer === null) {
+        // No results.
+        res.redirect("/catalog/manufacturers");
+    }
+    res.render("manufacturer_delete", {
+        title: "Delete Manufacturer",
+        manufacturer: manufacturer,
+        manufacturer_products: allProductsByManufacturer,
+    });
 });
 
 // Handle Manufacturer delete on POST.
 exports.manufacturer_delete_post = asyncHandler(async(req, res, next) => {
-    res.send("NOT IMPLEMENTED: Manufacturer delete POST");
+    // Get details of manufacturer and all their products (in parallel)
+    const [manufacturer, allProductsByManufacturer] = await Promise.all([
+        Manufacturer.findById(req.params.id).exec(),
+        Product.find({ manufacturer: req.params.id}, "title pic_url description").exec(),
+    ]);
+
+    if(allProductsByManufacturer.length > 0){
+        // Manufacturer has products. Render in same way as for GET route.
+        res.render("manufacturer_delete", {
+            title: "Delete Manufacturer",
+            manufacturer: manufacturer,
+            manufacturer_products: allProductsByManufacturer,
+        });
+        return;
+    }else{
+        // Manufacturer has no products. Delete object and redirect to the list of manufacturers.
+        await Manufacturer.findByIdAndDelete(req.body.manufacturerid);
+        res.redirect("/catalog/manufacturers");
+    }
 });
 
 // Display Manufacturer update form on GET.
