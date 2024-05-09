@@ -1,18 +1,22 @@
 <%- include('partials/header.ejs'); -%>
 <h1><%= title %></h1>
 
-<form method="POST">
-    <label for="name">Category:</label>
-    <input 
-        id="name" 
-        type="text" 
-        placeholder="Small firearms, explosives etc." 
-        name="name" 
-        required 
-        value="<%= typeof category === 'undefined' ? '' : category.name %>">
-    </input>
-    <button>Submit</button>
-</form>
+    <div class="form-container">
+        <form method="POST" class="input-form">
+            <div class="form-row">
+                <label for="name">Category:</label>
+                <input 
+                    id="name" 
+                    type="text" 
+                    placeholder="Small firearms, explosives etc." 
+                    name="name" 
+                    required 
+                    value="<%= typeof category === 'undefined' ? '' : category.name %>">
+                </input>
+            </div>
+            <button>Submit</button>
+        </form>
+    </div>
 
 <% if(locals.errors){ %>
     <ul>

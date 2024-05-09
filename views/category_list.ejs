@@ -2,7 +2,7 @@
     <h1><%= title%></h1>
     
     <% if (category_list.length) { %>
-        <ul>
+        <ul style="display: flex; flex-direction: column; gap: 1rem;">
           <% category_list.forEach(function(category) { %>
             <li>
               <a href="<%= category.url %>"><%= category.name %></a> 

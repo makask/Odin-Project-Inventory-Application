@@ -11,29 +11,40 @@
     <p><%= manufacturer.description %></p>
 </div>
 
+<div class="edit-container">
+  <p><a class="button-update" href="<%= manufacturer.url %>/update">Update Manufacturer</a></p>
+  <p><a class="button-delete" href="<%= manufacturer.url %>/delete">Delete Manufacturer</a></p>
+</div>
+
 <div style='margin-left:20px;margin-top:20px'>
 
   <h2 style='font-size: 1.5rem;'>Products:</h2>
-
-  <ul>
-      <% if (manufacturer_products.length) { %>
+    
+  <% if (manufacturer_products.length) { %>
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Product</th>
+          <th>Product Description</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
         <% manufacturer_products.forEach(function(product) { %>
-          <li>
-            <div style="display: flex; gap: 1rem;">
-                <p><a href="<%= product.url %>"><%= product.title %></a></p>
-                <p><%= product.description %></p>
-            </div>
-          </li>
-          <% }); %>
-      <% } else { %>
-        <p>This manufacturer has no products.</p>
-      <% } %>
-  </ul>
-
+          <tr>
+            <td><img style="width: 100px;" src="<%= product.pic_url %>"/></td>
+            <td><p><a href="<%= product.url %>"><%= product.title %></a></p></td>
+            <td><p><%= product.description %></p></td>
+            <td><p><a class="button-delete" href="<%= product.url %>/delete">Delete</a></p></td>
+          </tr>  
+        <% }); %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p>This manufacturer has no products.</p>
+  <% } %>
 </div>
-
-<p><a href="<%= manufacturer.url %>/update">Update Manufacturer</a></p>
-<p><a href="<%= manufacturer.url %>/delete">Delete Manufacturer</a></p>
 
 </div>
 </div>

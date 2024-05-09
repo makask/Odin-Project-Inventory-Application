@@ -3,26 +3,30 @@
 <h1><%= title %>: <%= manufacturer.name %></h1>
 
 <% if (manufacturer_products.length) { %>
-    <p><strong>Delete the following products before attempting to delete this manufacturer.</strong></p>
-    <div style='margin-left:20px;margin-top:20px'>
-      <h4>Products</h4>
-      <dl>
+  <p><strong>Delete the following products before attempting to delete this manufacturer.</strong></p>
+  <div style='margin-left:20px;margin-top:20px'>
+    <h4>Products</h4>
+    <table class="product-table">
+      <thead>
+      </thead>
+      <tbody>
         <% manufacturer_products.forEach(function(product) { %>
-            <div style="display: flex; align-items: center; gap:1rem;">
-                <img style="width: 100px;" src="<%= product.pic_url %>"/>
-                <a><%= product.title%></a>
-                <p><a href="<%= product.url %>/delete">Delete Product</a></p>
-            </div>         
-        <% }); %>
-      </dl>
-    </div>
+          <tr>
+            <td><img style="width: 100px;" src="<%= product.pic_url %>"/></td>
+            <td><a><%= product.title%></a></td>
+            <td><p><a class="button-delete" style="text-decoration: none;" href="<%= product.url %>/delete">Delete Product</a></p></td>
+          </tr>
+      <% }); %>
+      </tbody>
+    </table>
+  </div>
   <% } else { %>
     <p>Do you really want to delete this Manufacturer?</p>
     <form method='POST'>
       <div class="form-group">
         <input id="manufacturerid" class="form-control" type="hidden" name="manufacturerid" value="<%= manufacturer._id %>">
       </div>
-      <button class="btn btn-primary" type="submit">Delete</button>
+      <button class="button-delete" type="submit">Delete</button>
     </form>
   <% } %>
 

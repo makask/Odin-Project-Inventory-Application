@@ -29,8 +29,10 @@
 <p><strong>Date of manufacture:</strong> <%= product.date_of_manufacture_formatted %></p>
 
 <hr>
-<p><a href="<%= product.url %>/update">Update Product</a></p>
-<p><a href="<%= product.url %>/delete">Delete Product</a></p>
+<div class="edit-container">
+  <p><a class="button-update" href="<%= product.url %>/update">Update Product</a></p>
+  <p><a class="button-delete" href="<%= product.url %>/delete">Delete Product</a></p>
+</div>
 
 </div>
 </div>

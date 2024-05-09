@@ -1,31 +1,45 @@
 <%- include('partials/header.ejs'); -%>
 
-<div class="content">
+  <div class="content">
     <h1><%= title %></h1>
     <% if (product_list.length) { %>
-      <ul>
-        <% product_list.forEach(function(product) { %>
-          <li style="display: flex; gap:1rem; align-items: center;">
-            <img style="width: 50px;" src=<%= product.pic_url %> />
-            <a href="<%= product.url %>"><%= product.title %></a>
-            (<%= product.manufacturer.name %>)
-            <p><%= product.action%></p>
-            <p><%= product.caliber%></p>
-            <p><%= product.quantity%></p>
-            <ul>
-              <%product.category.forEach(function(c){%>
-                <li><%=c.name%></li>
-              <%})%>
-            </ul>
-            <p>$<%= product.price%></p>
-          </li>
-        <% }); %>
-      </ul>
+      <table class="product-table">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Manufacturer</th>
+            <th>Action</th>
+            <th>Caliber</th>
+            <th>Quantity</th>
+            <th>Category</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% product_list.forEach(function(product) { %>
+            <tr>
+              <td><img style="width: 100px;" src=<%= product.pic_url %> /></td>
+              <td><a href="<%= product.url %>"><%= product.title %></a></td>
+              <td><p>(<%= product.manufacturer.name %>)</p></td>
+              <td><p><%= product.action%></p></td>
+              <td><p><%= product.caliber%></p></td>
+              <td><p><%= product.quantity%></p></td>
+              <td>
+                <ul style="list-style: none; padding: 0;">
+                  <%product.category.forEach(function(c){%>
+                    <li><%=c.name%></li>
+                  <%})%>
+                </ul>
+              </td>
+              <td><p>$<%= product.price%></p></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
     <% } else { %>
       <p>There are no products.</p>
     <% } %>
-  </div>
-
 </div>
 </div>
 </body>

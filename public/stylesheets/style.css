@@ -1,7 +1,30 @@
 body {
-  /*background-image: url('../images/old-wall.jpg');
-  color: azure;
-  background-color: black;*/
+  background-image: url('../images/old-wall.jpg');
+  color: white;
+  background-color: black;
+  font-family:"Josefin Sans", sans-serif;
+  font-size: larger;
+}
+
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap:0.5rem;
+}
+
+.header img{
+  width: 100px;
+  border-radius: 50%;
+}
+
+img{
+  background-color: white;
+  border-radius: 5px;
+}
+
+.gla-soldiers-img{
+  width: 400px;
 }
 
 .main-container{
@@ -17,5 +40,114 @@ body {
 }
 
 a{
-  /*color: azure;*/
+  color: azure;
+}
+
+ul{
+  list-style-type: none;
+}
+
+/* Form styling*/
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-form {
+  width: 1400px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+input,
+select,
+textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-width: 100%; 
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Update Delete Buttons container */
+.edit-container{
+  display: flex;
+  gap:1rem;
+}
+
+.edit-container a {
+  text-decoration: none;
+}
+
+.button-update{
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-update:hover{
+  background-color: #0056b3;
+}
+
+.button-delete{
+  padding: 10px 20px;
+  background-color: #db3c5f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-delete:hover{
+  background-color: #a32742;
+}
+
+/* Table */
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.product-table th, .product-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.product-table img {
+  max-width: 100px;
+  height: auto;
 }

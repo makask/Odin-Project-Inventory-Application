@@ -1,21 +1,32 @@
 <%- include('partials/header.ejs'); -%>
-
-    <h1><%= title%></h1>
     
-    <% if(manufacturer_list.length){ %>
-        <ul>
-            <% manufacturer_list.forEach(function(manufacturer){ %>
-                <li style="display: flex; align-items: center; gap: 1rem">
-                    <img src="<%= manufacturer.logo_url%>" style="width: 100px;" />
-                    <a href="<%= manufacturer.url%>"><%=manufacturer.name%></a>
-                    <p><%= manufacturer.origin %></p>
-                    <a href="<%= manufacturer.homepage_url%>">HomePage</a>
-                </li>
-            <% }) %>
-        </ul>
-    <% }else{ %>
-        <p>There are no manufacturers</p>
-    <%} %>
+    <div class="content">
+        <h1><%= title%></h1>
+        <% if(manufacturer_list.length){ %>
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Origin</th>
+                        <th>Homepage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% manufacturer_list.forEach(function(manufacturer){ %>
+                        <tr>
+                            <td><img src="<%= manufacturer.logo_url%>" style="width: 100px;" /></td>
+                            <td><a href="<%= manufacturer.url%>"><%=manufacturer.name%></a></td>
+                            <td><p><%= manufacturer.origin %></p></td>
+                            <td><a href="<%= manufacturer.homepage_url%>"></a><%= manufacturer.homepage_url%></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% }else{ %>
+            <p>There are no manufacturers</p>
+        <%} %>
+    </div>
 
 
 </div>
