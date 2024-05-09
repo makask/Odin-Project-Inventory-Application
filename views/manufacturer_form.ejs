@@ -2,7 +2,7 @@
 
 <h1><%= title %></h1>
 
-<form action="/catalog/manufacturer/create" method="post">
+<form method="POST">
     <label for="name">Name:</label>
     <input id="name" name="name" type="text" placeholder="Company name" value="<%= typeof manufacturer === 'undefined' ? '' : manufacturer.name %>" required/>
     <br>
@@ -16,7 +16,7 @@
     <input id="founded" name="founded" type="number" min="1800" max="2099" step="1" placeholder="2024" value="<%= typeof manufacturer === 'undefined' ? '' : manufacturer.founded %>"/>
     <br>
     <label for="description">Description:</label>
-    <textarea id="description" name="description" type="text" placeholder="Description..." value="<%= typeof manufacturer === 'undefined' ? '' : manufacturer.description %>"></textarea>
+    <textarea id="description" name="description" type="text" placeholder="Description..."><%= typeof manufacturer === 'undefined' ? '' : manufacturer.description %></textarea>
     <br>
     <label for="homepage_url">Homepage url:</label>
     <input id="homepage_url" name="homepage_url" type="text" placeholder="Homepage" value="<%= typeof manufacturer === 'undefined' ? '' : manufacturer.homepage_url %>"/>

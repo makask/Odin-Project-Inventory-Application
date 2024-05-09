@@ -1,5 +1,7 @@
-body{
-
+body {
+  /*background-image: url('../images/old-wall.jpg');
+  color: azure;
+  background-color: black;*/
 }
 
 .main-container{
@@ -12,4 +14,8 @@ body{
 
 .right-area{
   padding: 1rem;
+}
+
+a{
+  /*color: azure;*/
 }

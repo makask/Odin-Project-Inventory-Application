@@ -104,10 +104,68 @@ exports.manufacturer_delete_post = asyncHandler(async(req, res, next) => {
 
 // Display Manufacturer update form on GET.
 exports.manufacturer_update_get = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Manufacturer update GET");
+    // Get manufacturer
+    const manufacturer = await Manufacturer.findById(req.params.id).exec();
+    if(manufacturer === null){
+        //No results.
+        const err = new Error("Manufacturer not found");
+        err.status = 404;
+        return next(err);
+    }
+    res.render("manufacturer_form", {
+        title: "Update Manufacturer",
+        manufacturer: manufacturer,
+    });
 });
 
 // Handle Manufacturer update on POST.
-exports.manufacturer_update_post = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Author update POST");
-});
+exports.manufacturer_update_post = [
+    // Validate and sanitize fields.
+    body("name")
+        .trim()
+        .isLength({ min: 1 })
+        .escape()
+        .withMessage("Manufacturers name must be specified."),
+    body("origin")
+        .trim()
+        .isLength({ min: 1})
+        .escape()
+        .withMessage("Manufacturers origin must be specified"),
+    body("founded")
+        .trim()
+        .escape(),
+    body("description")
+        .trim()
+        .escape(),
+    
+    // Process request after validation and sanitization.
+    asyncHandler(async(req, res, next) => {
+        // Extract the validation errors from a request.
+        const errors = validationResult(req);
+
+        // Create a Manufacturer object with escaped/trimmed data and old id.
+        const manufacturer = new Manufacturer({
+            name: req.body.name,
+            origin: req.body.origin,
+            logo_url: req.body.logo_url,
+            founded: req.body.founded,
+            description: req.body.description,
+            homepage_url: req.body.homepage_url,
+            _id: req.params.id,
+        });
+
+        if(!errors.isEmpty()){
+            // There are errors. Render form again with sanitized values/error messages.
+            res.render("manufacturer_form", {
+                title: "Update Manufacturer",
+                manufacturer: manufacturer,
+                errors: errors.array(),
+            });
+            return;
+        }else{
+            // Form data is valid. Update the record.
+            const updatedManufacturer = await Manufacturer.findByIdAndUpdate(req.params.id, manufacturer, {});
+            res.redirect(updatedManufacturer.url);
+        }
+    })
+];

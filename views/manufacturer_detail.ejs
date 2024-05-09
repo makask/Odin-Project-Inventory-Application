@@ -3,7 +3,7 @@
 <h1><%= title %></h1>
 
 <div style="display: flex;">
-    <img style="width: 100px;" src="<%= manufacturer.logo_url %>"/>
+    <img style="width: 130px;" src="<%= manufacturer.logo_url %>"/>
     <h1><%= manufacturer.name %></h1>
 </div>
 
@@ -13,18 +13,18 @@
 
 <div style='margin-left:20px;margin-top:20px'>
 
-  <h2 style='font-size: 1.5rem;'>Products</h2>
+  <h2 style='font-size: 1.5rem;'>Products:</h2>
 
   <ul>
       <% if (manufacturer_products.length) { %>
-        <li>
-          <% manufacturer_products.forEach(function(product) { %>
+        <% manufacturer_products.forEach(function(product) { %>
+          <li>
             <div style="display: flex; gap: 1rem;">
                 <p><a href="<%= product.url %>"><%= product.title %></a></p>
                 <p><%= product.description %></p>
             </div>
+          </li>
           <% }); %>
-        </li>
       <% } else { %>
         <p>This manufacturer has no products.</p>
       <% } %>
@@ -32,6 +32,7 @@
 
 </div>
 
+<p><a href="<%= manufacturer.url %>/update">Update Manufacturer</a></p>
 </div>
 </div>
 </body>
