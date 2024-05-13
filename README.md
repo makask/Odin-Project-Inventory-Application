@@ -20,7 +20,7 @@ How to use:
 3. Navigate to project folder
 4. Using terminal type: "npm install"
 5. Create your mongoDB database (https://www.mongodb.com/)
-6. Create .env file and insert MONGO_DB_USER=<your mongoDbUser> and MONGO_DB_PASSWORD=<your mongoDbPassword>
+6. Create .env file and insert MONGO_DB_USER=yourUserName and MONGO_DB_PASSWORD=yourMongoDBPassword
 7. In terminal type "nodemon devstart"
 
 ![image](https://github.com/makask/Odin-Project-Inventory-Application/assets/16080688/41a851f2-5307-459a-b6d4-803489125f8d)
