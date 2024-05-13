@@ -21,7 +21,8 @@ How to use:
 4. Using terminal type: "npm install"
 5. Create your mongoDB database (https://www.mongodb.com/)
 6. Create .env file and insert MONGO_DB_USER=yourUserName and MONGO_DB_PASSWORD=yourMongoDBPassword
-7. In terminal type "nodemon devstart"
+7. Insert your MONGO_DB_USER and MONGO_DB_PASSWORD to database connection string, it should look something like this (mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.ga7cwsb.mongodb.net/gla_store?retryWrites=true&w=majority&appName=Cluster0).
+8. In terminal type "nodemon devstart"
 
 ![image](https://github.com/makask/Odin-Project-Inventory-Application/assets/16080688/41a851f2-5307-459a-b6d4-803489125f8d)
 
